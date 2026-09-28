@@ -230,7 +230,7 @@ def export_raster(dist_array_m, profile, file_output):
     None
     """
     # Export distance array as tif file with rasterio
-    with rasterio.open(f'../../{file_output}.tif', 'w', **profile) as dst:
+    with rasterio.open(f'../{file_output}.tif', 'w', **profile) as dst:
         dst.write(dist_array_m, 1)
         
     # Display in console completed file storaged
