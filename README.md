@@ -40,9 +40,9 @@ import v2d
 dist_array = v2d.vector_to_distance(
     vector_path='vector.geojson',   # Input vector file (All GeoPandas supported formats are accepted) 
     px_m=30,                        # Pixel size in meters
-    file_output='output',           # Output file name, without extension
-    target=1,                       # Value assigned to vector features
-    no_target=0,                    # Value assigned to background pixels
+    file_output='output',           # Output file name, without extension (Default: 'output')
+    target=1,                       # Value assigned to vector features (Default: 1)
+    no_target=0,                    # Value assigned to background pixels (Default: 0)
 )
 ```
 
