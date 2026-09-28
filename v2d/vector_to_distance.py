@@ -1,3 +1,28 @@
+"""
+-*- coding: utf-8 -*-
+----------------------------------------------------------------------------
+Created By: Franco Barrionuevo
+Created Date: September 2026
+----------------------------------------------------------------------------
+
+v2d-Vector to Distance
+
+Utilities for computing a Euclidean proximity (distance) raster, in meters,
+from a vector layer.
+
+Pipeline overview
+------------------
+1. `get_utm_epsg`     -> determine the UTM zone (EPSG code) matching the vector's location
+2. `read_reprj_m`     -> read the vector file, reproject to that UTM zone (meters)
+3. `get_transform`    -> build the raster's affine transform from the vector's bounds
+4. `get_profile`      -> build the rasterio profile (driver, dtype, nodata, crs, transform)
+5. `vector_to_raster` -> rasterize the vector into a target / no_target array
+6. `array_distance`   -> Euclidean distance transform, in meters, to the nearest target
+7. `export_raster`    -> write the distance array to disk as a GeoTIFF
+8. `vector_to_distance` -> end-to-end pipeline, exports the result as a GeoTIFF
+"""
+
+# Import libraries
 import geopandas as gpd
 import numpy as np
 import rasterio
@@ -205,8 +230,12 @@ def export_raster(dist_array_m, profile, file_output):
     None
     """
     # Export distance array as tif file with rasterio
-    with rasterio.open(f'{file_output}.tif', 'w', **profile) as dst:
+    with rasterio.open(f'../../{file_output}.tif', 'w', **profile) as dst:
         dst.write(dist_array_m, 1)
+        
+    # Display in console completed file storaged
+    print(f'Output file succesfully stored in ../../{file_output}.tif ✅')
+    
 
 
 def vector_to_distance(vector_path, px_m, file_output='output', target=1, no_target=0):
