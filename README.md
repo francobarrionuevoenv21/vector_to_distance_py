@@ -1,7 +1,7 @@
 # v2d — Vector to Distance
 
 A lightweight Python package to compute a Euclidean **proximity (distance) raster**,
-in meters, from a vector layer — similar to QGIS's *Proximity (Raster Distance)* tool.
+in meters, from a vector layer based on built-in SciPy tools.
 
 Given a vector layer (e.g. urban areas, roads, water bodies), `v2d` rasterizes it,
 reprojects it automatically to the correct UTM zone (in meters) based on its location,
@@ -27,14 +27,10 @@ The package works in four steps, all wrapped into a single function
 Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/<your-username>/vector-to-distance-python.git
-cd vector-to-distance-python
+git clone https://github.com/francobarrionuevoenv21/vector_to_distance_py 
+cd vector_to_distance_py
 pip install -r requirements.txt
 ```
-
-No separate package installation step is required — the `v2d` folder is importable
-directly as long as your working directory (or `PYTHONPATH`) includes the cloned
-repository root.
 
 ## Usage
 
@@ -42,20 +38,20 @@ repository root.
 import v2d
 
 dist_array = v2d.vector_to_distance(
-    vector_path="urban_areas.shp",  # input vector file
-    px_m=30,                        # pixel size in meters
-    file_output="output",           # output file name, without extension
-    target=1,                       # value assigned to vector features
-    no_target=0,                    # value assigned to background pixels
+    vector_path='vector.geojson',   # Input vector file (All GeoPandas supported formats are accepted) 
+    px_m=30,                        # Pixel size in meters
+    file_output='output',           # Output file name, without extension
+    target=1,                       # Value assigned to vector features
+    no_target=0,                    # Value assigned to background pixels
 )
 ```
 
 Running the example above will:
 
-- Read `urban_areas.shp` and reproject it to the correct UTM zone in meters.
+- Read `vector.geojson` and reproject it to the correct UTM zone in meters.
 - Rasterize it at 30 m resolution.
 - Compute the distance (in meters) from every pixel to the nearest urban area.
-- Save the result as `output.tif` in the current working directory.
+- Save the result as `output.tif` in the (upper) current working directory.
 - Return the distance array as a NumPy array (`dist_array`) for further use in
   Python (plotting, further analysis, etc.), in addition to the exported file.
 
@@ -67,10 +63,10 @@ pipeline (e.g. reusing an already-reprojected vector, or exporting your own prof
 ```python
 import v2d
 
-vector_gdf = v2d.read_reprj_m("urban_areas.shp")
+vector_gdf = v2d.read_reprj_m('vector.shp')
 vector_array, profile = v2d.vector_to_raster(vector_gdf, px_m=30, target=1, no_target=0)
 dist_array = v2d.array_distance(vector_array, px_m=30, no_target=0)
-v2d.export_raster(dist_array, profile, "output")
+v2d.export_raster(dist_array, profile, 'output')
 ```
 
 ## Output
