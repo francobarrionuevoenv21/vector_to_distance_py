@@ -234,7 +234,7 @@ def export_raster(dist_array_m, profile, file_output):
         dst.write(dist_array_m, 1)
         
     # Display in console completed file storaged
-    print(f'Output file succesfully stored in ../../{file_output}.tif ✅')
+    print(f'Output file succesfully stored in ../{file_output}.tif ✅')
     
 
 
