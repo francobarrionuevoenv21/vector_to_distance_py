@@ -1,6 +1,6 @@
 # v2d — Vector to Distance
 
-A lightweight Python package to compute a Euclidean **proximity (distance) raster**,
+A lightweight Python package to compute a Euclidean **distance raster**,
 in meters, from a vector layer based on built-in SciPy tools.
 
 Given a vector layer (e.g. urban areas, roads, water bodies), `v2d` rasterizes it,
