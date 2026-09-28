@@ -241,7 +241,7 @@ def export_raster(dist_array_m, profile, file_output):
 def vector_to_distance(vector_path, px_m, file_output='output', target=1, no_target=0):
     """
     End-to-end pipeline: read a vector file, rasterize it, compute a Euclidean
-    proximity raster in meters, and export it as a GeoTIFF (QGIS "Proximity"-style tool).
+    proximity raster in meters, and export it as a GeoTIFF.
 
     Parameters
     ----------
